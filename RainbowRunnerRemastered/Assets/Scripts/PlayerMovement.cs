@@ -24,12 +24,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Move();
+
         if (!controller.isGrounded)
         {
             ApplyGravity();
         }
-
-        Move();
 
         if (InputManager.Instance.GetJumpInput() && controller.isGrounded)
         {
@@ -49,11 +49,14 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Jump()
     {
         float elaspedTime = 0;
+        float currentJumpMovement = jumpForce;
         animator.SetTrigger("Jump");
 
         while(elaspedTime < jumpTime)
         {
-            controller.Move(Vector3.up * Time.deltaTime * jumpForce);
+            controller.Move(Vector3.up * Time.deltaTime * currentJumpMovement);
+
+            currentJumpMovement *= 1 - Time.deltaTime;
 
             elaspedTime += Time.deltaTime;
             yield return null;
