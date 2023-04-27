@@ -32,4 +32,9 @@ public class Platform : MonoBehaviour
             PlatformPool.Instance.AddPlatformToPool(gameObject);
         }   
     }
+
+    public void SetStartingPlatform()
+    {
+        isStartingPlatform = true;
+    }
 }
