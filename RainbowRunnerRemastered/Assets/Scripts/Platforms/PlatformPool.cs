@@ -54,6 +54,7 @@ public class PlatformPool : MonoBehaviour
 
         platform.SetActive(true);
         platform.transform.position = pos;
+        platform.transform.localScale = new Vector3(2, 1, 10);
 
         return platform;
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] Animator playerAnimator;
+
     public bool gameStarted { get; private set; } = false;
 
     public static GameManager Instance { get; private set; }
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         if (!gameStarted && InputManager.Instance.GetJumpInput())
         {
             gameStarted = true;
+            playerAnimator.SetBool("Running", true);
         }
     }
 }
