@@ -263,6 +263,10 @@ MonoBehaviour:
   color1Mat: {fileID: 2100000, guid: e8fc827a9b57ea04081f33a076ca0bbd, type: 2}
   color2Mat: {fileID: 2100000, guid: e8bd76b5fb9a97f439c763e0e34a4a36, type: 2}
   color3Mat: {fileID: 2100000, guid: c9e6312237464e54581f21bab906f45d, type: 2}
+  color1: {r: 1, g: 0, b: 0, a: 0}
+  color2: {r: 0.9169483, g: 1, b: 0, a: 0}
+  color3: {r: 0.052066326, g: 0, b: 1, a: 0}
+  volume: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
 --- !u!1001 &1067885594448446714
 PrefabInstance:
   m_ObjectHideFlags: 0
