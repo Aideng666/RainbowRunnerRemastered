@@ -67,9 +67,17 @@ public class PlatformSpawner : MonoBehaviour
         {
             if (elaspedDelayTime > spawnDelay)
             {
+                int platformChoice = Random.Range(0, 2); // chooses between wall or platform
                 float xPos = Random.Range(Mathf.Max(previousXPos - 5, minMaxXPositions.x), Mathf.Min(previousXPos + 5, minMaxXPositions.y));
 
-                activePlatforms.Add(PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, zSpawnPos)));
+                if (platformChoice == 0)
+                {
+                    activePlatforms.Add(PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, zSpawnPos)));
+                }
+                else if (platformChoice == 1)
+                {
+                    activePlatforms.Add(PlatformPool.Instance.SpawnWall(new Vector3(xPos, 4, zSpawnPos)));
+                }
 
                 previousXPos = xPos;
                 elaspedDelayTime = 0;

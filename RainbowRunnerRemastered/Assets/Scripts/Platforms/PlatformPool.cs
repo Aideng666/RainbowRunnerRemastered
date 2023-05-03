@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlatformPool : MonoBehaviour
 {
     [SerializeField] GameObject platformPrefab;
+    [SerializeField] GameObject wallPrefab;
 
     Queue<GameObject> availablePlatforms;
+    Queue<GameObject> availableWalls;
     int numPlatforms = 12;
 
     public static PlatformPool Instance { get; private set; }
@@ -27,11 +29,13 @@ public class PlatformPool : MonoBehaviour
     void Start()
     {
         availablePlatforms = new Queue<GameObject>();
+        availableWalls = new Queue<GameObject>();
 
-        CreatePool();
+        CreatePlatformPool();
+        CreateWallPool();
     }
 
-    void CreatePool()
+    void CreatePlatformPool()
     {
         for (int i = 0; i < numPlatforms; i++)
         {
@@ -43,20 +47,46 @@ public class PlatformPool : MonoBehaviour
         }
     }
 
+    void CreateWallPool()
+    {
+        for (int i = 0; i < numPlatforms; i++)
+        {
+            GameObject wall = Instantiate(wallPrefab, transform);
+
+            availableWalls.Enqueue(wall);
+
+            wall.SetActive(false);
+        }
+    }
+
     public GameObject SpawnPlatform(Vector3 pos)
     {
         if (availablePlatforms.Count == 0)
         {
-            CreatePool();
+            CreatePlatformPool();
         }
 
         GameObject platform = availablePlatforms.Dequeue();
 
         platform.SetActive(true);
         platform.transform.position = pos;
-        platform.transform.localScale = new Vector3(2, 1, 10);
 
         return platform;
+    }
+
+    public GameObject SpawnWall(Vector3 pos)
+    {
+        if (availableWalls.Count == 0)
+        {
+            CreateWallPool();
+        }
+
+        GameObject wall = availableWalls.Dequeue();
+
+        wall.SetActive(true);
+        wall.transform.position = pos;
+
+        return wall;
     }
 
     public void AddPlatformToPool(GameObject platform)
@@ -64,5 +94,12 @@ public class PlatformPool : MonoBehaviour
         availablePlatforms.Enqueue(platform);
 
         platform.SetActive(false);
+    }
+
+    public void AddWallToPool(GameObject wall)
+    {
+        availableWalls.Enqueue(wall);
+
+        wall.SetActive(false);
     }
 }

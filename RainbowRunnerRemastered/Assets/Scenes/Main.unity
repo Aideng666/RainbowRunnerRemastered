@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 2, y: 1, z: 1000}
+  Damping: {x: 2, y: 0.1, z: 1000}
   ShoulderOffset: {x: 0, y: 0, z: 0}
   VerticalArmLength: 7
   CameraSide: 1
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 688127515}
   spawnDelay: 1.5
-  zSpawnPos: 50
+  zSpawnPos: 55
   minMaxXPositions: {x: -10, y: 10}
 --- !u!1 &1914751327
 GameObject:
@@ -896,6 +896,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 8517605144152566816, guid: e9a3caaa1cfbe2a42a088538a1bc2ae8,
+    type: 3}
+  wallPrefab: {fileID: 184754798331115555, guid: 5c2cebeedddccef4da195d89bf4f88f4,
     type: 3}
 --- !u!1001 &1067885594874256142
 PrefabInstance:
@@ -996,14 +998,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1067885594455008533, guid: d7a7c1c877ef4544e941523a1b410d19,
         type: 3}
+      propertyPath: jumpTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067885594455008533, guid: d7a7c1c877ef4544e941523a1b410d19,
+        type: 3}
       propertyPath: jumpForce
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1067885594455008533, guid: d7a7c1c877ef4544e941523a1b410d19,
         type: 3}
       propertyPath: headAimTarget
       value: 
       objectReference: {fileID: 9720801}
+    - target: {fileID: 1067885594455008533, guid: d7a7c1c877ef4544e941523a1b410d19,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1067885594455008535, guid: d7a7c1c877ef4544e941523a1b410d19,
         type: 3}
       propertyPath: m_Name
@@ -1029,7 +1041,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.65
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1067885594455008530, guid: d7a7c1c877ef4544e941523a1b410d19, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d7a7c1c877ef4544e941523a1b410d19, type: 3}
 --- !u!1001 &8517605144381366714
 PrefabInstance:
