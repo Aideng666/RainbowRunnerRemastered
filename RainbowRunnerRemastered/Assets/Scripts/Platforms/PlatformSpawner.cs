@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
 {
     [SerializeField] PlayerMovement player;
-    [SerializeField] float spawnDelay = 1f;
     [SerializeField] float zSpawnPos = 20;
-    [SerializeField] Vector2 minMaxXPositions = new Vector2(-10, 10);
 
-    public List<GameObject> activePlatforms { get; private set; } = new List<GameObject>();
+    public GameObject[] platformGroups { get; private set; }
 
-    float elaspedDelayTime = 0;
-    float previousXPos = 0;
+    float distanceBetweenPlatforms = 15;
     bool platformsSpawned = false;
+
+    GameObject currentGroup = null;
 
     public static PlatformSpawner Instance { get; private set; }
 
@@ -33,65 +33,42 @@ public class PlatformSpawner : MonoBehaviour
     void Start()
     {
         platformsSpawned = false;
+
+        platformGroups = GetAllPlatformGroups();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.Instance.gameStarted && !platformsSpawned)
-        { 
-            float xPos = Random.Range(Mathf.Max(previousXPos - 5, minMaxXPositions.x), Mathf.Min(previousXPos + 5, minMaxXPositions.y));
-            GameObject platform = PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, 10));
-            activePlatforms.Add(platform);
-            previousXPos = xPos;
+        if (!GameManager.Instance.gameStarted && !platformsSpawned && PlatformGroupPool.Instance != null)
+        {
+            int groupChoice = Random.Range(0, platformGroups.Length);
 
-            xPos = Random.Range(Mathf.Max(previousXPos - 5, minMaxXPositions.x), Mathf.Min(previousXPos + 5, minMaxXPositions.y));
-            platform = PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, 25));
-            activePlatforms.Add(platform);
-            previousXPos = xPos;
+            GameObject group = PlatformGroupPool.Instance.SpawnGroup(groupChoice, new Vector3(0, 0, 10));
 
-            xPos = Random.Range(Mathf.Max(previousXPos - 5, minMaxXPositions.x), Mathf.Min(previousXPos + 5, minMaxXPositions.y));
-            platform = PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, 40));
-            activePlatforms.Add(platform);
-            previousXPos = xPos;
+            currentGroup = group;
 
-            xPos = Random.Range(Mathf.Max(previousXPos - 5, minMaxXPositions.x), Mathf.Min(previousXPos + 5, minMaxXPositions.y));
-            platform = PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, 55));
-            activePlatforms.Add(platform);
-            previousXPos = xPos;
-
-            platformsSpawned = true;
+            if (currentGroup != null)
+            {
+                platformsSpawned = true;
+            }
         }
 
         if (GameManager.Instance.gameStarted)
         {
-            if (elaspedDelayTime > spawnDelay)
+            if (currentGroup.transform.position.z + currentGroup.GetComponent<PlatformGroup>().GroupLength + distanceBetweenPlatforms < zSpawnPos)
             {
-                int platformChoice = Random.Range(0, 2); // chooses between wall or platform
-                float xPos = Random.Range(Mathf.Max(previousXPos - 5, minMaxXPositions.x), Mathf.Min(previousXPos + 5, minMaxXPositions.y));
+                int groupChoice = Random.Range(1, platformGroups.Length + 1);
 
-                if (platformChoice == 0)
-                {
-                    activePlatforms.Add(PlatformPool.Instance.SpawnPlatform(new Vector3(xPos, 0, zSpawnPos)));
-                }
-                else if (platformChoice == 1)
-                {
-                    activePlatforms.Add(PlatformPool.Instance.SpawnWall(new Vector3(xPos, 4, zSpawnPos)));
-                }
+                GameObject group = PlatformGroupPool.Instance.SpawnGroup(groupChoice, new Vector3(0, 0, zSpawnPos));
 
-                previousXPos = xPos;
-                elaspedDelayTime = 0;
-
-                return;
+                currentGroup = group;
             }
-
-            elaspedDelayTime += Time.deltaTime;
         }
     }
 
-    public void DeactivatePlatform(GameObject platform)
+    public GameObject[] GetAllPlatformGroups()
     {
-        activePlatforms.Remove(platform);
-        PlatformPool.Instance.AddPlatformToPool(platform);
+        return Resources.LoadAll<GameObject>("PlatformGroups");
     }
 }

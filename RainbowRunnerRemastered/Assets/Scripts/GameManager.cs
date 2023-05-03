@@ -5,8 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Animator playerAnimator;
+    [SerializeField] float platformMoveSpeed = 10;
 
     public bool gameStarted { get; private set; } = false;
+    public float PlatformMoveSpeed { get { return platformMoveSpeed; } }
 
     public static GameManager Instance { get; private set; }
 

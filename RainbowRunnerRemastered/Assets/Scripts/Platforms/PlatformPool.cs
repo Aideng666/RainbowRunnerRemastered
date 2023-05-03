@@ -6,7 +6,6 @@ public class PlatformPool : MonoBehaviour
 {
     [SerializeField] GameObject platformPrefab;
     [SerializeField] GameObject wallPrefab;
-
     Queue<GameObject> availablePlatforms;
     Queue<GameObject> availableWalls;
     int numPlatforms = 12;
@@ -68,8 +67,8 @@ public class PlatformPool : MonoBehaviour
 
         GameObject platform = availablePlatforms.Dequeue();
 
-        platform.SetActive(true);
         platform.transform.position = pos;
+        platform.SetActive(true);
 
         return platform;
     }
@@ -83,8 +82,8 @@ public class PlatformPool : MonoBehaviour
 
         GameObject wall = availableWalls.Dequeue();
 
-        wall.SetActive(true);
         wall.transform.position = pos;
+        wall.SetActive(true);
 
         return wall;
     }

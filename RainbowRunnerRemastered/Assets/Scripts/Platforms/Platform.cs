@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Platform : MonoBehaviour
 {
     [SerializeField] Material color1Mat;
     [SerializeField] Material color2Mat;
     [SerializeField] Material color3Mat;
-    [SerializeField] float platformMoveSpeed = 10;
     [SerializeField] bool isStartingPlatform = false;
 
     LayerMask color1Layer;
@@ -53,25 +53,19 @@ public class Platform : MonoBehaviour
 
                 break;
         }
+
+        //Animates the platform being spawned in
+        transform.position += Vector3.down * 20;
+        transform.DOMoveY(transform.position.y + 20, 1).SetEase(Ease.OutBack);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Moves the platforms towards the player
-        if (GameManager.Instance.gameStarted)
-        { 
-            transform.position += platformMoveSpeed * Time.deltaTime * Vector3.back;
-        }
-
-        //Adds past platforms back into the object pool (ignores the starting platform)
-        if (transform.position.z <= -20 && isStartingPlatform)
+        //Removes the starting platform after beginning the game
+        if (GameManager.Instance.gameStarted && isStartingPlatform)
         {
             Destroy(gameObject);
         }
-        else if (transform.position.z <= -20)
-        {
-            PlatformSpawner.Instance.DeactivatePlatform(gameObject);
-        }   
     }
 }

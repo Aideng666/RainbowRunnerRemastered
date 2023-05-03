@@ -73,31 +73,31 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Sets the head aim target to the closest platform in front of them
-        GameObject closestPlatform = null;
+        //GameObject closestPlatform = null;
 
-        foreach (GameObject platform in PlatformSpawner.Instance.activePlatforms)
-        {
-            if (closestPlatform == null && platform.transform.position.z > transform.position.z)
-            {
-                closestPlatform = platform;
+        //foreach (GameObject platform in PlatformSpawner.Instance.activePlatforms)
+        //{
+        //    if (closestPlatform == null && platform.transform.position.z > transform.position.z)
+        //    {
+        //        closestPlatform = platform;
 
-                continue;
-            }
-            else if (closestPlatform == null)
-            {
-                continue;
-            }
+        //        continue;
+        //    }
+        //    else if (closestPlatform == null)
+        //    {
+        //        continue;
+        //    }
 
-            if (Vector3.Distance(platform.transform.position, transform.position) < Vector3.Distance(closestPlatform.transform.position, transform.position) && platform.transform.position.z > transform.position.z)
-            {
-                closestPlatform = platform;
-            }
-        }
+        //    if (Vector3.Distance(platform.transform.position, transform.position) < Vector3.Distance(closestPlatform.transform.position, transform.position) && platform.transform.position.z > transform.position.z)
+        //    {
+        //        closestPlatform = platform;
+        //    }
+        //}
 
-        if (closestPlatform != null)
-        {
-            SetHeadTargetPos(closestPlatform.transform.position);
-        }
+        //if (closestPlatform != null)
+        //{
+        //    SetHeadTargetPos(closestPlatform.transform.position);
+        //}
 
         Mathf.Clamp(wallRunSide, 0, 1);
 
