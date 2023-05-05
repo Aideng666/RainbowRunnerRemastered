@@ -187,18 +187,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts[0].normal.y > 0.9f)
+        if (collision.contacts[0].normal.y > 0.9f && collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
         }
 
-        if (collision.contacts[0].normal.x <= -0.95f)
+        if (collision.contacts[0].normal.x <= -0.95f && collision.gameObject.CompareTag("Wall"))
         {
             //Left side of wall
             isWallRunning = true;
             wallRunSide = 0;
         }
-        else if (collision.contacts[0].normal.x >= 0.95f)
+        else if (collision.contacts[0].normal.x >= 0.95f && collision.gameObject.CompareTag("Wall"))
         {
             //right side of wall
             isWallRunning = true;
