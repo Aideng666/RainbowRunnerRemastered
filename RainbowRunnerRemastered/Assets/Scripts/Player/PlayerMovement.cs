@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     bool gravityApplied;
     float currentGravity;
 
+    public float MoveSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -187,18 +189,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.contacts[0].normal.y > 0.9f && collision.gameObject.CompareTag("Platform"))
+        if (collision.contacts[0].normal.y > 0.4f && collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
         }
 
-        if (collision.contacts[0].normal.x <= -0.95f && collision.gameObject.CompareTag("Wall"))
+        if (collision.contacts[0].normal.x <= -0.4f && collision.gameObject.CompareTag("Wall"))
         {
             //Left side of wall
             isWallRunning = true;
             wallRunSide = 0;
         }
-        else if (collision.contacts[0].normal.x >= 0.95f && collision.gameObject.CompareTag("Wall"))
+        else if (collision.contacts[0].normal.x >= 0.4f && collision.gameObject.CompareTag("Wall"))
         {
             //right side of wall
             isWallRunning = true;

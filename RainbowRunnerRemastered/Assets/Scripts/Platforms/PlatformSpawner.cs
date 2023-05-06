@@ -15,6 +15,8 @@ public class PlatformSpawner : MonoBehaviour
 
     GameObject currentGroup = null;
 
+    public GameObject CurrentGroup { get { return currentGroup; } }
+     
     public static PlatformSpawner Instance { get; private set; }
 
     private void Awake()

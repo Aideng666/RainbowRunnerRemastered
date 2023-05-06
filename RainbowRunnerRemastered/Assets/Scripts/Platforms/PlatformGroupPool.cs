@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformGroupPool : MonoBehaviour
 {
-    PlatformSpawner spawner;
+    [SerializeField] PlatformSpawner spawner;
     GameObject[] platformGroups;
 
     List<PlatformGroup> availableGroups;
@@ -27,7 +27,6 @@ public class PlatformGroupPool : MonoBehaviour
     void Start()
     {
         availableGroups = new List<PlatformGroup>();
-        spawner = FindObjectOfType<PlatformSpawner>();
     }
 
     GameObject SpawnNewGroup(int groupNum, Vector3 pos)

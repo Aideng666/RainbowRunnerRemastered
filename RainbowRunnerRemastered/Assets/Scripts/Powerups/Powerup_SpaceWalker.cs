@@ -2,27 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Powerup_DoubleScore : Powerup
+public class Powerup_SpaceWalker : Powerup
 {
-    PlayerScore score;
+    PlayerMovement player;
 
     protected override void Start()
     {
         base.Start();
 
-        score = FindObjectOfType<PlayerScore>();
+        player = FindObjectOfType<PlayerMovement>();
     }
 
     protected override void ApplyPowerup()
     {
         base.ApplyPowerup();
 
-        score.ScoreMultiplier *= 2;
+        player.MoveSpeed *= 1.5f;
     }
 
     protected override void RemovePowerup()
     {
-        score.ScoreMultiplier /= 2;
+        player.MoveSpeed /= 1.5f;
 
         base.RemovePowerup();
     }
