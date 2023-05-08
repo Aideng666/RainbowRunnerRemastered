@@ -11,31 +11,61 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float gravity = 9.81f;
     [SerializeField] Transform headAimTarget;
 
-    CharacterController controller;
+    Rigidbody body;
     Animator animator;
+
+    bool isWallRunning;
+    int wallRunSide; // 0 means player is on the left side of the wall, 1 means player is running on the right side of a wall
+    bool isGrounded;
+    bool gravityApplied;
+    float currentGravity;
+
+    public float MoveSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+
+        isGrounded = true;
+
+        currentGravity = gravity;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        body.velocity = Vector3.zero;
+
+        if (GameManager.Instance.gameStarted)
+        {
+            Move();
+        }
 
         //Applies gravity if not grounded
-        if (!controller.isGrounded)
+        if (!isGrounded && !isWallRunning)
         {
             ApplyGravity();
+            gravityApplied = true;
+        }
+        else
+        {
+            gravityApplied = false;
         }
 
         //Checks for jumping
-        if (InputManager.Instance.GetJumpInput() && controller.isGrounded)
+        if (InputManager.Instance.GetJumpInput())
         {
-            StartCoroutine(Jump());
+            if (isGrounded)
+            {
+                StartCoroutine(Jump());
+            }
+
+            if (isWallRunning)
+            {
+                StartCoroutine(JumpOffWall());
+            }
         }
 
         //Lose condition resets the scene
@@ -45,30 +75,41 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Sets the head aim target to the closest platform in front of them
-        GameObject closestPlatform = null;
+        //GameObject closestPlatform = null;
 
-        foreach (GameObject platform in PlatformSpawner.Instance.activePlatforms)
+        //foreach (GameObject platform in PlatformSpawner.Instance.activePlatforms)
+        //{
+        //    if (closestPlatform == null && platform.transform.position.z > transform.position.z)
+        //    {
+        //        closestPlatform = platform;
+
+        //        continue;
+        //    }
+        //    else if (closestPlatform == null)
+        //    {
+        //        continue;
+        //    }
+
+        //    if (Vector3.Distance(platform.transform.position, transform.position) < Vector3.Distance(closestPlatform.transform.position, transform.position) && platform.transform.position.z > transform.position.z)
+        //    {
+        //        closestPlatform = platform;
+        //    }
+        //}
+
+        //if (closestPlatform != null)
+        //{
+        //    SetHeadTargetPos(closestPlatform.transform.position);
+        //}
+
+        Mathf.Clamp(wallRunSide, 0, 1);
+
+        if (gravityApplied)
         {
-            if (closestPlatform == null && platform.transform.position.z > transform.position.z)
-            {
-                closestPlatform = platform;
-
-                continue;
-            }
-            else if (closestPlatform == null)
-            {
-                continue;
-            }
-
-            if (Vector3.Distance(platform.transform.position, transform.position) < Vector3.Distance(closestPlatform.transform.position, transform.position) && platform.transform.position.z > transform.position.z)
-            {
-                closestPlatform = platform;
-            }
+            currentGravity += 2 * Time.deltaTime;
         }
-
-        if (closestPlatform != null)
+        else
         {
-            SetHeadTargetPos(closestPlatform.transform.position);
+            currentGravity = gravity;
         }
     }
 
@@ -76,24 +117,56 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         Vector2 moveInput = InputManager.Instance.GetMoveInput();
+        Vector3 moveVector = Vector3.zero;
 
-        Vector3 moveVector = new Vector3(moveInput.x, 0, moveInput.y) * movementSpeed * Time.deltaTime;
+        if (!isWallRunning)
+        {
+            moveVector = new Vector3(moveInput.x, body.velocity.y, body.velocity.z) * movementSpeed;
+        }
+        else
+        {
+            moveVector = new Vector3(body.velocity.x, moveInput.y, body.velocity.z) * movementSpeed;
+        }
 
-        controller.Move(moveVector);
+        body.velocity = moveVector;
     }
 
     //Applies an upward jumping motion to the player that decreases over time to simulate a jump
     IEnumerator Jump()
     {
         float elaspedTime = 0;
-        float currentJumpMovement = jumpForce;
+        isGrounded = false;
+        isWallRunning = false;
         animator.SetTrigger("Jump");
 
-        while(elaspedTime < jumpTime)
+        while (elaspedTime < jumpTime)
         {
-            controller.Move(Vector3.up * Time.deltaTime * currentJumpMovement);
+            body.velocity = new Vector3(body.velocity.x, Mathf.Lerp(jumpForce, 0, elaspedTime / jumpTime), body.velocity.z);
 
-            currentJumpMovement *= 1 - Time.deltaTime;
+            elaspedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return null;
+    }
+
+    IEnumerator JumpOffWall()
+    {
+        float elaspedTime = 0;
+        isGrounded = false;
+        isWallRunning = false;
+        animator.SetTrigger("Jump");
+
+        while (elaspedTime < jumpTime)
+        {
+            if (wallRunSide == 0)
+            {
+                body.velocity = new Vector3(body.velocity.x + Mathf.Lerp(-movementSpeed, 0, elaspedTime / jumpTime), Mathf.Lerp(jumpForce, 0, elaspedTime / jumpTime), body.velocity.z);
+            }
+            else if (wallRunSide == 1)
+            {
+                body.velocity = new Vector3(body.velocity.x + Mathf.Lerp(movementSpeed, 0, elaspedTime / jumpTime), Mathf.Lerp(jumpForce, 0, elaspedTime / jumpTime), body.velocity.z);
+            }
 
             elaspedTime += Time.deltaTime;
             yield return null;
@@ -105,12 +178,39 @@ public class PlayerMovement : MonoBehaviour
     //Applies gravity to the player
     void ApplyGravity()
     {
-        controller.Move(Vector3.down * Time.deltaTime * gravity);
+        body.velocity += Vector3.down * currentGravity;
     }
 
     //Sets the target for what the character is currently looking at
     public void SetHeadTargetPos(Vector3 position)
     {
         headAimTarget.transform.position = position;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.contacts[0].normal.y > 0.4f && collision.gameObject.CompareTag("Platform"))
+        {
+            isGrounded = true;
+        }
+
+        if (collision.contacts[0].normal.x <= -0.4f && collision.gameObject.CompareTag("Wall"))
+        {
+            //Left side of wall
+            isWallRunning = true;
+            wallRunSide = 0;
+        }
+        else if (collision.contacts[0].normal.x >= 0.4f && collision.gameObject.CompareTag("Wall"))
+        {
+            //right side of wall
+            isWallRunning = true;
+            wallRunSide = 1;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
+        isWallRunning = false;
     }
 }

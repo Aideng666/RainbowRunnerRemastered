@@ -21,10 +21,13 @@ public class PlayerColors : MonoBehaviour
 
     int currentColor;
     Vignette vignette;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+
         volume.TryGet(out vignette);
 
         color1Layer = LayerMask.NameToLayer("Color1");
@@ -56,6 +59,8 @@ public class PlayerColors : MonoBehaviour
             {
                 meshRenderer.material = color1Mat;
             }
+
+            animator.SetTrigger("Flip");
         }
         else if (InputManager.Instance.GetColor2Input())
         {
@@ -67,6 +72,8 @@ public class PlayerColors : MonoBehaviour
             {
                 meshRenderer.material = color2Mat;
             }
+
+            animator.SetTrigger("Flip");
         }
         else if (InputManager.Instance.GetColor3Input())
         {
@@ -78,6 +85,8 @@ public class PlayerColors : MonoBehaviour
             {
                 meshRenderer.material = color3Mat;
             }
+
+            animator.SetTrigger("Flip");
         }
     }
 }
