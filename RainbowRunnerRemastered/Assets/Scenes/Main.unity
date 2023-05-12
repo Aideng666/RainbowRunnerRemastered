@@ -2757,7 +2757,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformSpawner: {fileID: 1906936472}
+  player: {fileID: 688127515}
   asteroidSpawnDelayRange: {x: 3, y: 7}
+  minAsteroidSpawnDistance: 40
 --- !u!1001 &1067885594874256142
 PrefabInstance:
   m_ObjectHideFlags: 0

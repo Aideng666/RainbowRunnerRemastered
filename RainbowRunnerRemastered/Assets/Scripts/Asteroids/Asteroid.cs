@@ -6,19 +6,19 @@ using UnityEngine.UIElements;
 
 public class Asteroid : MonoBehaviour
 {
+    Vector3 randomRotationVector;
+
     private void OnEnable()
     {
-        //Animates the asteroid being spawned in
-        transform.localScale += Vector3.zero;
-        transform.DOScale(Vector3.one * 200, 2).SetEase(Ease.OutBack);
+        randomRotationVector = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
     }
-
     // Update is called once per frame
     void Update()
     {
         if (GameManager.Instance.gameStarted)
         {
             transform.position += Vector3.back * GameManager.Instance.AsteroidMoveSpeed * Time.deltaTime;
+            transform.Rotate(randomRotationVector * 50 * Time.deltaTime);
         }
 
         //Adds completed groups back into the object pool

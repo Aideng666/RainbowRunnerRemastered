@@ -5,7 +5,9 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] PlatformSpawner platformSpawner;
+    [SerializeField] PlayerMovement player;
     [SerializeField] Vector2 asteroidSpawnDelayRange = new Vector2(7.5f, 10f);
+    [SerializeField] float minAsteroidSpawnDistance = 15;
 
     float elaspedDelayTime = 0;
     float chosenSpawnDelay;
@@ -45,12 +47,20 @@ public class AsteroidSpawner : MonoBehaviour
 
         Transform selectedSpawnPlatform = currentPlatformGroup.transform.GetChild(randomChild);
 
+        //Check if the selected platform is too close to the player and reselects a platform if it is
+        if (Vector3.Distance(selectedSpawnPlatform.position, player.transform.position) < minAsteroidSpawnDistance)
+        {
+            SpawnAsteroid();
+
+            return;
+        }
+
         Vector3 spawnPos = Vector3.zero;
 
         //Spawns the asteroid in the correct location based on the platform type
         if (selectedSpawnPlatform.CompareTag("Platform"))
         {
-            spawnPos = selectedSpawnPlatform.position + (Vector3.forward * Random.Range(-4f, 4f) * 5) + (Vector3.up * 2);
+            spawnPos = selectedSpawnPlatform.position + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up * 2) + (Vector3.forward * 15);
         }
         else if (selectedSpawnPlatform.CompareTag("Wall"))
         {
@@ -59,12 +69,12 @@ public class AsteroidSpawner : MonoBehaviour
             //Left Side
             if (randomSide == 0)
             {
-                spawnPos = selectedSpawnPlatform.position + (Vector3.up * Random.Range(-4f, 4f)) + (Vector3.left * 2) + (Vector3.forward * 5);
+                spawnPos = selectedSpawnPlatform.position + (Vector3.up * Random.Range(-4f, 4f)) + (Vector3.left * 2) + (Vector3.forward * 15);
             }
             //Right Side
             else
             {
-                spawnPos = selectedSpawnPlatform.position + (Vector3.up * Random.Range(-4f, 4f)) + (Vector3.right * 2) + (Vector3.forward * 5);
+                spawnPos = selectedSpawnPlatform.position + (Vector3.up * Random.Range(-4f, 4f)) + (Vector3.right * 2) + (Vector3.forward * 15);
             }
         }
 
