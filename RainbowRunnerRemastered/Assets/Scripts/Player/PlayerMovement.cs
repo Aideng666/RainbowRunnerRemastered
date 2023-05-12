@@ -129,6 +129,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         body.velocity = moveVector;
+
+        //Rotates the player based on movement
+        if (body.velocity.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 45, 0);
+        }
+        else if (body.velocity.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, -45, 0);
+        }
+        else if (body.velocity.x == 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     //Applies an upward jumping motion to the player that decreases over time to simulate a jump
