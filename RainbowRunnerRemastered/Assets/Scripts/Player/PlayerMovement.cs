@@ -150,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
         yield return null;
     }
 
+    //Jumping off of a wall gives a little bit of sideways movement as well as upwards movement
     IEnumerator JumpOffWall()
     {
         float elaspedTime = 0;
@@ -189,6 +190,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Asteroid Collision
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            SceneManager.LoadScene("Main");
+        }
+
+        //Checks for grounded and wall running
         if (collision.contacts[0].normal.y > 0.4f && collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
@@ -208,6 +216,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Resets flags when leaving a collision
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;

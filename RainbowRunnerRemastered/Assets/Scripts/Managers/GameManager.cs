@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] Animator playerAnimator;
     [SerializeField] float platformMoveSpeed = 10;
+    [SerializeField] float asteroidMoveSpeed = 15;
     [SerializeField] float powerupDuration = 10;
 
     public bool gameStarted { get; private set; } = false;
     public float PlatformMoveSpeed { get { return platformMoveSpeed; } }
+    public float AsteroidMoveSpeed { get { return asteroidMoveSpeed; } }
     public float PowerupDuration { get { return powerupDuration; } }
 
     public static GameManager Instance { get; private set; }
