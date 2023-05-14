@@ -1,3 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="height: 336px; background-color: rgb(255, 255, 255);" />
+    <ui:VisualElement name="Background" style="height: 100%; background-color: rgb(0, 0, 0); width: 100%; position: absolute;">
+        <ui:VisualElement name="Logo" style="background-color: rgb(255, 255, 255); width: 512px; height: 512px; left: 36%; top: 14%;">
+            <ui:Label text="Some Team Logo" display-tooltip-when-elided="true" name="PlaceholderText" style="-unity-text-align: upper-center; font-size: 50px; top: 40%;" />
+        </ui:VisualElement>
+        <ui:Label text="Some Team Name" display-tooltip-when-elided="true" name="PlaceholderTitleText" style="color: rgb(255, 255, 255); font-size: 50px; width: 446px; top: 28%; left: 38%;" />
+    </ui:VisualElement>
 </ui:UXML>
