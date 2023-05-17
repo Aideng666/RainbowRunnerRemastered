@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Main.uss?fileID=7433441132597879392&amp;guid=0c2bfcd1df689c74e9cb8b165ffef3a7&amp;type=3#Main" />
-    <ui:VisualElement name="BackgroundContainer" class="mainMenu" style="flex-shrink: 1; flex-grow: 1; flex-direction: row; justify-content: space-between;">
+    <ui:VisualElement name="BackgroundContainer" class="background" style="flex-shrink: 1; flex-grow: 1; flex-direction: row; justify-content: space-between;">
         <ui:VisualElement name="left" style="width: 50%;">
             <ui:VisualElement name="title-container" style="margin-left: 26px; margin-right: 26px; margin-top: 26px; margin-bottom: 26px; align-items: flex-start;">
                 <ui:Label text="Rainbow Runner" display-tooltip-when-elided="true" name="text--top" class="textTitleTop" style="font-size: 63px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 0.5px;" />
@@ -15,7 +15,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="right" style="width: 50%;">
             <ui:VisualElement name="character-customization" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0); -unity-text-align: upper-left; justify-content: center; align-items: stretch;">
-                <ui:VisualElement name="characterImage" style="height: 50%; background-color: rgb(121, 255, 119); margin-left: 158px; margin-right: 158px; margin-top: 158px; margin-bottom: 158px; justify-content: flex-start; border-top-left-radius: 201px; border-bottom-left-radius: 201px; border-top-right-radius: 201px; border-bottom-right-radius: 201px;" />
+                <ui:VisualElement name="characterImage" class="characterImagePlaceholder" />
                 <ui:Button text="Change Alien" display-tooltip-when-elided="true" name="button--customize" class="button-customize" />
             </ui:VisualElement>
         </ui:VisualElement>
