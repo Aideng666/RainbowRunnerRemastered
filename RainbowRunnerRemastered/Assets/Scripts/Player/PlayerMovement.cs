@@ -129,6 +129,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         body.velocity = moveVector;
+
+        //Rotates the player based on movement
+        if (body.velocity.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 45, 0);
+        }
+        else if (body.velocity.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, -45, 0);
+        }
+        else if (body.velocity.x == 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     //Applies an upward jumping motion to the player that decreases over time to simulate a jump
@@ -150,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
         yield return null;
     }
 
+    //Jumping off of a wall gives a little bit of sideways movement as well as upwards movement
     IEnumerator JumpOffWall()
     {
         float elaspedTime = 0;
@@ -189,6 +204,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Asteroid Collision
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            SceneManager.LoadScene("Main");
+        }
+
+        //Checks for grounded and wall running
         if (collision.contacts[0].normal.y > 0.4f && collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
@@ -208,6 +230,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Resets flags when leaving a collision
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
