@@ -35,17 +35,19 @@ public class PowerupSpawner : MonoBehaviour
         }
     }
 
+    //Finds the current platform group that was spawned and randomly selects one of the platforms/walls to spawn a powerup on
     void SpawnPowerup()
     {
         GameObject currentPlatformGroup = platformSpawner.CurrentGroup;
 
-        int randomChild = Random.Range(0, currentPlatformGroup.transform.childCount);
-        int powerupChoice = Random.Range(0, possiblePowerups.Length);
+        int randomChild = Random.Range(0, currentPlatformGroup.transform.childCount); // Random Platform
+        int powerupChoice = Random.Range(0, possiblePowerups.Length); // Random Powerup
 
         Transform selectedSpawnPlatform = currentPlatformGroup.transform.GetChild(randomChild);
 
         Vector3 spawnPos = Vector3.zero;
 
+        //Spawns the powerup in the correct location based on the platform type
         if (selectedSpawnPlatform.CompareTag("Platform"))
         {
             spawnPos = selectedSpawnPlatform.position + (Vector3.forward * Random.Range(-4f, 4f)) + (Vector3.up * 2);
@@ -67,8 +69,6 @@ public class PowerupSpawner : MonoBehaviour
         }
 
         PowerupPool.Instance.SpawnPowerup((Powerups)powerupChoice, spawnPos);
-
-        //print(spawnPos);
     }
 
     public GameObject[] GetAllPowerups()
