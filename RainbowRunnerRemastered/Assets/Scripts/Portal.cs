@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
+    [SerializeField] GameObject connectedPortal;
+    [SerializeField] Transform player;
     [SerializeField] bool isEntrance;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (isEntrance && collision.gameObject.CompareTag("Player"))
+        {
+            player.position = connectedPortal.transform.position;
+        }
     }
 }
