@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
     InputAction color1Action;
     InputAction color2Action;
     InputAction color3Action;
+    InputAction inputAction;
 
     public static InputManager Instance { get; private set; }
 
@@ -38,6 +39,7 @@ public class InputManager : MonoBehaviour
         color1Action = playerInput.actions["Color1"];
         color2Action = playerInput.actions["Color2"];
         color3Action = playerInput.actions["Color3"];
+        inputAction = playerInput.actions["Input"];
     }
 
     public Vector2 GetMoveInput()
@@ -63,5 +65,10 @@ public class InputManager : MonoBehaviour
     public bool GetColor3Input()
     {
         return color3Action.triggered;
+    }
+
+    public bool GetInput()
+    {
+        return inputAction.triggered;
     }
 }
