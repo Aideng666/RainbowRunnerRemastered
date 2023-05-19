@@ -4,35 +4,36 @@
         <ui:VisualElement name="top" style="flex-direction: row; justify-content: flex-start;">
             <ui:Button text="&lt;" display-tooltip-when-elided="true" name="button--back" class="buttonBack" />
             <ui:Label text="Controls" display-tooltip-when-elided="true" name="ControlsTitle" class="sectionHeader" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+            <ui:Button text="Button" display-tooltip-when-elided="true" style="left: 64%;" />
         </ui:VisualElement>
         <ui:VisualElement name="Divider" class="divider" style="margin-top: 20px;" />
-        <ui:VisualElement name="screen" style="flex-grow: 1; flex-direction: row;">
-            <ui:VisualElement name="controlNames" style="align-items: stretch; justify-content: space-between; padding-left: 53px; padding-right: 53px; padding-top: 53px; padding-bottom: 53px;">
-                <ui:Label text="Left" display-tooltip-when-elided="true" name="control--left" class="controlName" />
-                <ui:Label text="Right" display-tooltip-when-elided="true" name="control--right" class="controlName" />
-                <ui:Label text="Jump" display-tooltip-when-elided="true" name="control--jump" class="controlName" />
-                <ui:Label text="Primary Colour" display-tooltip-when-elided="true" name="control--colour1" class="controlName" />
-                <ui:Label text="Secondary Colour" display-tooltip-when-elided="true" name="control--colour2" class="controlName" />
-                <ui:Label text="Tertiary Colour" display-tooltip-when-elided="true" name="control--colour3" class="controlName" />
+        <ui:VisualElement name="screen" style="flex-grow: 1; flex-direction: row; height: auto;">
+            <ui:VisualElement name="controlNames" style="align-items: stretch; justify-content: space-between; padding-left: 53px; padding-right: 53px; padding-top: 34px; padding-bottom: 53px; height: 100%; flex-grow: 1; width: auto;">
+                <ui:Label text="Left" display-tooltip-when-elided="true" name="control--left" class="controlName" style="padding-top: 4px; top: 1%;" />
+                <ui:Label text="Right" display-tooltip-when-elided="true" name="control--right" class="controlName" style="padding-top: 4px; top: 2%;" />
+                <ui:Label text="Jump" display-tooltip-when-elided="true" name="control--jump" class="controlName" style="padding-top: 4px; top: 2%;" />
+                <ui:Label text="Primary Colour" display-tooltip-when-elided="true" name="control--colour1" class="controlName" style="padding-top: 4px; top: 3%;" />
+                <ui:Label text="Secondary Colour" display-tooltip-when-elided="true" name="control--colour2" class="controlName" style="padding-top: 4px; top: 3%;" />
+                <ui:Label text="Tertiary Colour" display-tooltip-when-elided="true" name="control--colour3" class="controlName" style="padding-top: 4px; top: 3%;" />
             </ui:VisualElement>
-            <ui:VisualElement name="keybinds" style="flex-direction: column; flex-grow: 1; justify-content: space-between; margin-left: 50px; margin-right: 50px; margin-top: 50px; margin-bottom: 50px;">
-                <ui:VisualElement name="keybind--left" style="height: 120px; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0.2);">
-                    <ui:Label text="A" display-tooltip-when-elided="true" name="keybindControl" class="controlName" style="-unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="keybinds" style="flex-grow: 1; height: 100%; justify-content: space-between; left: auto; width: 52%;">
+                <ui:VisualElement name="keybind--left" class="controlButton" style="justify-content: flex-start; height: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                    <ui:Button text="A" display-tooltip-when-elided="true" name="controlText" class="controlName" style="-unity-text-align: upper-center; background-color: rgba(149, 149, 149, 0.83); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <ui:VisualElement name="keybind--right" style="height: 120px; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0.2);">
-                    <ui:Label text="D" display-tooltip-when-elided="true" name="keybindControl" class="controlName" style="-unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="keybind--left" class="controlButton" style="justify-content: flex-start; height: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                    <ui:Button text="A" display-tooltip-when-elided="true" name="controlText" class="controlName" style="-unity-text-align: upper-center; background-color: rgba(149, 149, 149, 0.83); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <ui:VisualElement name="keybind--jump" style="height: 120px; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0.2);">
-                    <ui:Label text="Space" display-tooltip-when-elided="true" name="keybindControl" class="controlName" style="-unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="keybind--left" class="controlButton" style="justify-content: flex-start; height: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                    <ui:Button text="A" display-tooltip-when-elided="true" name="controlText" class="controlName" style="-unity-text-align: upper-center; background-color: rgba(149, 149, 149, 0.83); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <ui:VisualElement name="keybind--colour1" style="height: 120px; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0.2);">
-                    <ui:Label text="J" display-tooltip-when-elided="true" name="keybindControl" class="controlName" style="-unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="keybind--left" class="controlButton" style="justify-content: flex-start; height: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                    <ui:Button text="A" display-tooltip-when-elided="true" name="controlText" class="controlName" style="-unity-text-align: upper-center; background-color: rgba(149, 149, 149, 0.83); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <ui:VisualElement name="keybind--colour3" style="height: 120px; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0.2);">
-                    <ui:Label text="K" display-tooltip-when-elided="true" name="keybindControl" class="controlName" style="-unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="keybind--left" class="controlButton" style="justify-content: flex-start; height: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                    <ui:Button text="A" display-tooltip-when-elided="true" name="controlText" class="controlName" style="-unity-text-align: upper-center; background-color: rgba(149, 149, 149, 0.83); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
-                <ui:VisualElement name="keybind--colour2" style="height: 120px; color: rgb(255, 255, 255); background-color: rgba(255, 255, 255, 0.2);">
-                    <ui:Label text="L" display-tooltip-when-elided="true" name="keybindControl" class="controlName" style="-unity-text-align: upper-center; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="keybind--left" class="controlButton" style="justify-content: flex-start; height: auto; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+                    <ui:Button text="A" display-tooltip-when-elided="true" name="controlText" class="controlName" style="-unity-text-align: upper-center; background-color: rgba(149, 149, 149, 0.83); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
