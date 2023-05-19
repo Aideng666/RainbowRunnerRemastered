@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Main.uss?fileID=7433441132597879392&amp;guid=0c2bfcd1df689c74e9cb8b165ffef3a7&amp;type=3#Main" />
+    <ui:VisualElement name="Background" class="background" style="flex-grow: 1;">
+        <ui:VisualElement name="top" style="flex-direction: row; justify-content: flex-start;">
+            <ui:Button text="&lt;" display-tooltip-when-elided="true" name="button--back" class="buttonBack" />
+            <ui:Label text="Settings" display-tooltip-when-elided="true" name="SettingsTitle" class="sectionHeader" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Divider" class="divider" style="margin-top: 20px;" />
+        <ui:VisualElement name="screen" style="flex-grow: 1; align-items: stretch; justify-content: space-between; flex-direction: row;">
+            <ui:VisualElement name="left" style="width: 50%;">
+                <ui:VisualElement name="buttonContainer" style="flex-grow: 1; align-items: flex-start; justify-content: center; padding-left: 25%;">
+                    <ui:Button text="Controls" display-tooltip-when-elided="true" name="button--controls" class="button" />
+                    <ui:Button text="Audio" display-tooltip-when-elided="true" name="button--audio" class="button" />
+                    <ui:Button text="Glossary" display-tooltip-when-elided="true" name="button--glossary" class="button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="right" style="width: 50%; flex-grow: 1;">
+                <ui:VisualElement name="characterImage" class="characterImagePlaceholder" style="height: 100%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
