@@ -15,7 +15,17 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(FadeCanvas());
+        // FOR PROTOTYPING ONLY
+        // ONLY THE LOGO CANVAS SHOULD BE ACTIVE AT RUNTIME
+
+        canvasList[0].SetActive(true);
+
+        for (int i = 1; i < canvasList.Count; ++i)
+        {
+            canvasList[i].SetActive(false);
+        }
+
+        StartCoroutine(FadeCanvas());     
     }
 
     // Update is called once per frame
