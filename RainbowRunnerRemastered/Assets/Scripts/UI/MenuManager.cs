@@ -7,7 +7,7 @@ using DG.Tweening;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> canvasList = new List<GameObject>();
-    //[SerializeField] RectTransform faderImage;
+    [SerializeField] RectTransform faderImage;
 
     Tween fadeTween;
     public float startFadeTime = 1f;
@@ -16,7 +16,6 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(FadeCanvas());
-        //faderImage.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -25,22 +24,32 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    public void FadeTransitionImage()
+    {
+        Sequence sequence = DOTween.Sequence();
 
-    //public void FadeTransitionImage()
-    //{
-    //    Sequence sequence = DOTween.Sequence();
+        sequence.Append(faderImage.DOScale(1f, 1f).SetEase(Ease.InOutExpo))
+            .Append(faderImage.DOScale(0f, 1f).SetEase(Ease.InOutExpo));                                
+    }
 
-    //    sequence.Append(faderImage.DOScale(1f, 1f).SetEase(Ease.InOutExpo))
-    //        .AppendInterval(2f)
-    //        .Append(faderImage.DOScale(0f, 1f).SetEase(Ease.InOutExpo))
-    //        .OnComplete(() => ToggleActive(canvasList[1], canvasList[2]));        
-    //}
+    public void FadeTransition()
+    {
+        Tween startTransition = faderImage.DOScale(1f, 1f).SetEase(Ease.InOutExpo).OnComplete(() => ToggleActive(canvasList[1], canvasList[2]));
+        Tween endTransition = faderImage.DOScale(0f, 1f).SetEase(Ease.InOutExpo);
 
-    //public void ToggleActive(GameObject obj1, GameObject obj2)
-    //{
-    //    obj1.SetActive(false);
-    //    obj2.SetActive(true);
-    //}
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(startTransition)
+            .AppendInterval(1f)
+            .Append(endTransition)
+            ;
+    }
+
+    public void ToggleActive(GameObject obj1, GameObject obj2)
+    {
+        obj1.SetActive(false);
+        obj2.SetActive(true);
+    }
 
     void Fade(CanvasGroup canvasGroup, float endValue, float duration, TweenCallback onEnd)
     {
@@ -73,13 +82,20 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator FadeCanvas()
     {
+        // Wait 1 second
         yield return new WaitForSeconds(1f);
+        // Fade in the logo screen canvas
         FadeIn(canvasList[0].GetComponentInChildren<CanvasGroup>(), 1f);
+        // Wait
         yield return new WaitForSeconds(3f);
+        // Fade out the logo screen canvas
         FadeOut(canvasList[0].GetComponentInChildren<CanvasGroup>(), 1f);
+        // Wait
         yield return new WaitForSeconds(1.5f);
+        // Turn off the logo screen canvas, turn on the start screen canvas
         canvasList[0].SetActive(false);
         canvasList[1].SetActive(true);
+        // Fade out the black screen to create the fade in effect when going to the start screen 
         FadeOut(canvasList[1].GetComponentInChildren<CanvasGroup>(), 1f);
     }
 
