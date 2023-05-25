@@ -5,14 +5,31 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     [SerializeField] GameObject connectedPortal;
-    [SerializeField] Transform player;
     [SerializeField] bool isEntrance;
 
-    private void OnCollisionEnter(Collision collision)
+    PlayerMovement player;
+    MeshRenderer mesh;
+
+    private void Start()
     {
-        if (isEntrance && collision.gameObject.CompareTag("Player"))
+        player = PlayerMovement.Instance;
+        mesh = GetComponentInChildren<MeshRenderer>();
+    }
+
+    //private void OnEnable()
+    //{
+        
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isEntrance && other.CompareTag("Player"))
         {
-            player.position = connectedPortal.transform.position;
+            player.transform.position = connectedPortal.transform.position;
         }
+        //else if (!isEntrance && other.CompareTag("Player"))
+        //{
+        //    mesh.enabled = false;
+        //}
     }
 }

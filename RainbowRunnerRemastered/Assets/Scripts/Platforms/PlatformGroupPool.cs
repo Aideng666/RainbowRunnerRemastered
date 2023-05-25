@@ -53,7 +53,6 @@ public class PlatformGroupPool : MonoBehaviour
     {
         if (availableGroups.Count == 0)
         {
-
             return SpawnNewGroup(groupNum, pos);
         }
         else

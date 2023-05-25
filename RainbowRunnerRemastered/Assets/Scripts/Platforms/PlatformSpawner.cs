@@ -44,7 +44,7 @@ public class PlatformSpawner : MonoBehaviour
     {
         if (!GameManager.Instance.gameStarted && !platformsSpawned && PlatformGroupPool.Instance != null)
         {
-            int groupChoice = Random.Range(0, platformGroups.Length);
+            int groupChoice = Random.Range(1, platformGroups.Length + 1);
 
             GameObject group = PlatformGroupPool.Instance.SpawnGroup(groupChoice, new Vector3(0, 0, 10));
 

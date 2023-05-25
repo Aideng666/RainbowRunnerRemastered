@@ -22,6 +22,20 @@ public class PlayerMovement : MonoBehaviour
 
     public float MoveSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
 
+    public static PlayerMovement Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+
+            return;
+        }
+
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
