@@ -20,6 +20,8 @@ public class PlayerColors : MonoBehaviour
     LayerMask color3Layer;
 
     int currentColor;
+    float colorChangeTimer = 0.25f;
+    float elaspedTimeAfterChange = 0;
     Vignette vignette;
     Animator animator;
 
@@ -60,6 +62,8 @@ public class PlayerColors : MonoBehaviour
                 meshRenderer.material = color1Mat;
             }
 
+            elaspedTimeAfterChange = 0;
+
             animator.SetTrigger("Flip");
         }
         else if (InputManager.Instance.GetColor2Input())
@@ -72,6 +76,8 @@ public class PlayerColors : MonoBehaviour
             {
                 meshRenderer.material = color2Mat;
             }
+
+            elaspedTimeAfterChange = 0;
 
             animator.SetTrigger("Flip");
         }
@@ -86,7 +92,24 @@ public class PlayerColors : MonoBehaviour
                 meshRenderer.material = color3Mat;
             }
 
+            elaspedTimeAfterChange = 0;
+
             animator.SetTrigger("Flip");
         }
+
+        if (elaspedTimeAfterChange <= colorChangeTimer)
+        {
+            elaspedTimeAfterChange += Time.deltaTime;
+        }
+    }
+
+    public bool CheckColorTimer()
+    {
+        if (elaspedTimeAfterChange <= colorChangeTimer)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -22,7 +22,7 @@ public class PlayerScore : MonoBehaviour
         }
     }
 
-    void AddScore(float score)
+    public void AddScore(float score)
     {
         currentScore += score;
     }

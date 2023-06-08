@@ -10,9 +10,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpTime = 0.5f;
     [SerializeField] float gravity = 9.81f;
     [SerializeField] Transform headAimTarget;
+    [SerializeField] ParticleSystem perfectChangeParticle;
 
     Rigidbody body;
     Animator animator;
+    PlayerColors playerColors;
+    PlayerScore playerScore;
 
     bool isWallRunning;
     int wallRunSide; // 0 means player is on the left side of the wall, 1 means player is running on the right side of a wall
@@ -41,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        playerColors = GetComponent<PlayerColors>();
+        playerScore = GetComponent<PlayerScore>();
 
         isGrounded = true;
 
@@ -228,6 +233,13 @@ public class PlayerMovement : MonoBehaviour
         if (collision.contacts[0].normal.y > 0.4f && collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = true;
+
+            //Adds extra score when timing the color change correctly
+            if (playerColors.CheckColorTimer())
+            {
+                playerScore.AddScore(10);
+                perfectChangeParticle.Play();
+            }
         }
 
         if (collision.contacts[0].normal.x <= -0.4f && collision.gameObject.CompareTag("Wall"))
@@ -235,12 +247,24 @@ public class PlayerMovement : MonoBehaviour
             //Left side of wall
             isWallRunning = true;
             wallRunSide = 0;
+
+            if (playerColors.CheckColorTimer())
+            {
+                playerScore.AddScore(10);
+                perfectChangeParticle.Play();
+            }
         }
         else if (collision.contacts[0].normal.x >= 0.4f && collision.gameObject.CompareTag("Wall"))
         {
             //right side of wall
             isWallRunning = true;
             wallRunSide = 1;
+
+            if (playerColors.CheckColorTimer())
+            {
+                playerScore.AddScore(10);
+                perfectChangeParticle.Play();
+            }
         }
     }
 
